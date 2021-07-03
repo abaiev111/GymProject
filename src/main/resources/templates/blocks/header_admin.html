@@ -1,0 +1,22 @@
+<div th:fragment="header">
+    <div class="container py-3"><!--.container -->
+        <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <a  class="d-flex align-items-center text-dark text-decoration-none">
+                    <img src="https://image.freepik.com/free-vector/fitness-and-gym-logo_7888-5.jpg"  width="50" height="50" alt="images">
+                    <span class="fs-4">NoName</span>
+                </a>
+
+                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/admin/database">Администратор</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/admin">Главная</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/admin/rools">Правила клуба</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/admin/contact">Контакты</a>
+                    <form action="/logout" method="POST">
+                        <button type="submit">Выход</button>
+                    </form>
+                </nav>
+            </div>
+        </header>
+    </div>
+</div>

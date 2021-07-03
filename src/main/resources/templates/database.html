@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+<header th:insert="blocks/header_admin :: header"></header>
+
+<div class="container text-center">
+    <div><h1>Страница администратора</h1></div>
+
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/gym}">Список фитнес клубов NoName</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/gym/new}">Создать новый фитнес клуб NoName</a>
+    </div>
+
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/client}">список Клиентов</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/client/new}">Добавить клиента</a>
+    </div>
+
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/employee}">список сотрудников</a>
+    </div>
+    <div class="p-2">
+        <a class="h2" th:href="@{/admin/employee/new}">Добавить сотрудника</a>
+    </div>
+
+</div>
+
+</body>
+</html>

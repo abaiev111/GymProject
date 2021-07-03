@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить сотрудника</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+<header th:insert="blocks/header_admin :: header"></header>
+
+<div class="container text-center">
+    <div><h1>Добавить сотрудника</h1></div>
+
+    <!--Add client-->
+    <form action="#" th:action="@{/admin/addEmployee}"
+          th:object="${employee}"
+          method="post">
+        <div class="row">
+
+            <div class="form-group col-md-6">
+                <label for="firstName" class="col-form-label">Имя</label>
+                <input type="text" th:field="*{firstName}" class="form-control" id="firstName" placeholder="Имя">
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="lastName" class="col-form-label">Фамилия</label>
+                <input type="text" th:field="*{lastName}" class="form-control" id="lastName" placeholder="Фамилия">
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="age" class="col-form-label">Возраст</label>
+                <input type="text" th:field="*{age}" class="form-control" id="age" placeholder="Возраст">
+                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="dayOfBirth" class="col-form-label">Дата рождения</label>
+                <input type="text" th:field="*{dayOfBirth}" class="form-control" id="dayOfBirth" placeholder="Дата рождения">
+                <span th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="phone" class="col-form-label">Телефон</label>
+                <input type="text" th:field="*{phone}" class="form-control" id="phone" placeholder="Телефон">
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="position" class="col-form-label">Позиция</label>
+                <input type="text" th:field="*{position}" class="form-control" id="position" placeholder="Позиция">
+                <span th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="experience" class="col-form-label">Опыт работы</label>
+                <input type="text" th:field="*{experience}" class="form-control" id="experience" placeholder="Опыт работы">
+                <span th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="salary" class="col-form-label">Зарплата</label>
+                <input type="text" th:field="*{salary}" class="form-control" id="salary" placeholder="Зарплата">
+                <span th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm4" >Фитнес зал</label>
+                <div class="col-sm-8">
+                    <select th:field="*{gym}" class="form-control" required>
+                        <th:block th:each="gym :${listGym}">
+                            <option th:text="${gym.street}" th:value="${gym.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <input type="submit" class="btn btn-primary" value="Добавить">
+            </div>
+        </div>
+    </form>
+    <!--Add end-->
+</div>
+
+</body>
+</html>

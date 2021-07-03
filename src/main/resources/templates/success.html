@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to Spring Security Thymeleaf tutorial</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+
+    <!--Admin-->
+
+    <header th:insert="blocks/header_admin :: header"></header>
+
+    <header th th:insert="blocks/body_admin :: header"></header>
+
+    <!--Admin-->
+</div>
+
+
+<div sec:authorize="hasRole('ROLE_USER')">
+
+    <!--User-->
+    <header th:insert="blocks/header :: header"></header>
+
+    <header th th:insert="blocks/body :: header"></header>
+
+    <!--User-->
+
+</html>
