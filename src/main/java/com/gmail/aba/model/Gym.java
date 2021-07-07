@@ -2,6 +2,7 @@ package com.gmail.aba.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -69,4 +70,6 @@ public class Gym {
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
+
+
 }

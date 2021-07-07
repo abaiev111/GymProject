@@ -2,39 +2,42 @@ package com.gmail.aba.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String getAdmin() {
-        return "home_admin";
+        return "success";
     }
 
-    @GetMapping("/admin/rools")
+    @GetMapping("/rools")
     public String adminRools(){
         return "admin_rools";
     }
 
-    @GetMapping("/admin/contact")
+    @GetMapping("/contact")
     public String adminContact(){
         return "admin_contact";
     }
 
-    @GetMapping("/admin/database")
+    @GetMapping("/database")
     public String admin() {
         return "database";
     }
 
-    @GetMapping("/one/admin")
+    @GetMapping("/one")
     public String returnOneAdmin() {
         return "admin_training-program-one";
     }
-    @GetMapping("/two/admin")
+    @GetMapping("/two")
     public String returnTwoAdmin() {
         return "admin_training-program-two";
     }
-    @GetMapping("/three/admin")
+    @GetMapping("/three")
     public String returnThreeAdmin() {
         return "admin_training-program-three";
     }

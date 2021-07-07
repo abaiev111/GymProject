@@ -31,10 +31,10 @@
                         <td th:text="${gym.city}" />
                         <td th:text="${gym.street}" />
 
-                        <td><a th:href="@{/admin/edit/{id}(id=${gym.id})}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
+                        <td><a th:href="@{/gym/edit/{id}(id=${gym.id})}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
 
 <!--
-                        <td><a th:href="@{/delete/{id}(id=${gym.id})}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
+                        <td><a th:href="@{/gym/delete/{id}(id=${gym.id})}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
 -->
 
                     </tr>
@@ -45,7 +45,7 @@
             </table>
         </div>
         <div class="col-md-6 mt-5">
-            <p class="my-3"><a href="/admin/gym/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
+            <p class="my-3"><a href="/gym/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
         </div>
 
 

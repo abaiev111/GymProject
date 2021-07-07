@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/employee")
 public class EmployeeController {
 
 
@@ -27,7 +29,7 @@ public class EmployeeController {
         this.gymRepository = gymRepository;
     }
 
-    @GetMapping("/admin/employee")
+    @GetMapping
     public String showEmployeeList(Model model){
         model.addAttribute("employees", employeesRepository.findAll());
         return "index_employee";
@@ -35,7 +37,7 @@ public class EmployeeController {
 
 
     //.........................ADD
-    @GetMapping("/admin/employee/new")
+    @GetMapping("/new")
     public String showAddEmployeeForm(Model model, Employee employee){
 
         List<Gym> listGym = gymRepository.findAll();
@@ -43,19 +45,19 @@ public class EmployeeController {
         return "add_employee";
     }
 
-    @PostMapping("/admin/addEmployee")
+    @PostMapping("/addEmployee")
     public String addEmployee(@Valid Employee employee, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "add_employee";
         }
         employeesRepository.save(employee);
-        return "redirect:/admin/employee";
+        return "redirect:/employee";
     }
 
     //...............................UPDATE
 
-    @GetMapping("/admin/employee/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateEmployeeForm(@PathVariable("id") long id, Model model) {
 
         Employee employee = employeesRepository.findById(id)
@@ -68,7 +70,7 @@ public class EmployeeController {
         return "update_employee";
     }
 
-    @PostMapping("/admin/employee/edit/{id}")
+    @PostMapping("/edit/{id}")
     public String updateEmployee(@PathVariable("id") long id, @Valid Employee employee,
                                BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -77,16 +79,16 @@ public class EmployeeController {
         }
 
         employeesRepository.save(employee);
-        return "redirect:/admin/employee";
+        return "redirect:/employee";
     }
 
 
     //............................DETETE
-    @GetMapping("/admin/employee/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteEmployee(@PathVariable("id") long id, Model model) {
         Employee employee = employeesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
         employeesRepository.delete(employee);
-        return "redirect:/admin/employee";
+        return "redirect:/employee";
     }
 }

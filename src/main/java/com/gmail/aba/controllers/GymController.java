@@ -9,17 +9,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
 
 @Controller
+@RequestMapping("/gym")
 public class GymController {
 
     @Autowired
     private GymRepository gymRepository;
 
-    @GetMapping("/admin/gym")
+    @GetMapping
     public String showGymList(Model model){
         model.addAttribute("gyms", gymRepository.findAll());
         return "index_gym";
@@ -27,22 +29,22 @@ public class GymController {
 
 
     //.........................ADD
-    @GetMapping("/admin/gym/new")
+    @GetMapping("/new")
     public String showAddGymForm(Gym gym){
         return "add_gym";
     }
 
-    @PostMapping("/admin/addGym")
+    @PostMapping("/addGym")
     public String addGym(@Valid Gym gym, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add_gym";
         }
         gymRepository.save(gym);
-        return "redirect:/admin/gym";
+        return "redirect:/gym";
     }
 
     //...............................UPDATE
-    @GetMapping("/admin/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateGymForm(@PathVariable("id") long id, Model model) {
         Gym gym = gymRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
@@ -51,7 +53,7 @@ public class GymController {
         return "update_gym";
     }
 
-    @PostMapping("/admin/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateGym(@PathVariable("id") long id, @Valid Gym gym,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -60,7 +62,7 @@ public class GymController {
         }
 
         gymRepository.save(gym);
-        return "redirect:/admin/gym";
+        return "redirect:/gym";
     }
 
 

@@ -45,9 +45,9 @@
 
                         <td th:text="${client.gym.street}" />
 
-                        <td><a th:href="@{'/admin/client/edit/' + ${client.id}}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
+                        <td><a th:href="@{'/client/edit/' + ${client.id}}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
 
-                        <td><a th:href="@{'/admin/client/delete/' + ${client.id}}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
+                        <td><a th:href="@{'/client/delete/' + ${client.id}}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
 
                     </tr>
                 </th:block>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="col-md-6 mt-5">
-            <p class="my-3"><a href="/admin/client/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
+            <p class="my-3"><a href="/client/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
         </div>
 
     </div>

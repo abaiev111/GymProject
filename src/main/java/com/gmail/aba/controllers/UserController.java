@@ -2,17 +2,24 @@ package com.gmail.aba.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
+    @GetMapping()
+    public String getUser() {
+        return "success";
+    }
 
-    @GetMapping("/user/rools")
+
+    @GetMapping("/rools")
     public String userRools(){
         return "user_rools";
     }
 
-    @GetMapping("/user/contact")
+    @GetMapping("/contact")
     public String userContact()   {
         return "user_contact";
     }

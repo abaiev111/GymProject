@@ -1,6 +1,7 @@
 package com.gmail.aba.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Client {
@@ -106,4 +107,6 @@ public class Client {
     public void setGym(Gym gym) {
         this.gym = gym;
     }
+
+
 }

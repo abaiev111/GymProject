@@ -49,8 +49,8 @@
 
                         <td th:text="${employee.gym.street}" />
 
-                        <td><a th:href="@{'/admin/employee/edit/' + ${employee.id}}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
-                        <td><a th:href="@{'/admin/employee/delete/' + ${employee.id}}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
+                        <td><a th:href="@{'/employee/edit/' + ${employee.id}}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
+                        <td><a th:href="@{'/employee/delete/' + ${employee.id}}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
 
                     </tr>
                 </th:block>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="col-md-6 mt-5">
-            <p class="my-3"><a href="/admin/employee/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
+            <p class="my-3"><a href="/employee/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
         </div>
 
     </div>

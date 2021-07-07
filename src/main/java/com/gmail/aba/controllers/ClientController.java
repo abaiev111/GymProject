@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/client")
 public class ClientController {
 
     private final ClientRepository clientRepository;
@@ -28,7 +30,7 @@ public class ClientController {
 
 
 
-    @GetMapping("/admin/client")
+    @GetMapping
     public String showClientList(Model model){
         model.addAttribute("clients", clientRepository.findAll());
         return "index_client";
@@ -36,7 +38,7 @@ public class ClientController {
 
 
     //.........................ADD
-    @GetMapping("/admin/client/new")
+    @GetMapping("/new")
     public String showAddClientForm(Model model, Client client){
 
         List<Gym> listGym = gymRepository.findAll();
@@ -45,7 +47,7 @@ public class ClientController {
         return "add_client";
     }
 
-    @PostMapping("/admin/addClient")
+    @PostMapping("/addClient")
     public String addClient(@Valid Client client, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
@@ -53,12 +55,12 @@ public class ClientController {
         }
 
         clientRepository.save(client);
-        return "redirect:/admin/client";
+        return "redirect:/client";
     }
 
     //...............................UPDATE
 
-    @GetMapping("/admin/client/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateClientForm(@PathVariable("id") long id, Model model) {
 
         Client client = clientRepository.findById(id)
@@ -71,7 +73,7 @@ public class ClientController {
         return "update_client";
     }
 
-    @PostMapping("/admin/client/edit/{id}")
+    @PostMapping("/edit/{id}")
     public String updateClient(@PathVariable("id") long id, @Valid Client client,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -80,16 +82,16 @@ public class ClientController {
         }
 
         clientRepository.save(client);
-        return "redirect:/admin/client";
+        return "redirect:/client";
     }
 
 
     //............................DETETE
-    @GetMapping("/admin/client/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteClient(@PathVariable("id") long id, Model model) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
         clientRepository.delete(client);
-        return "redirect:/admin/client";
+        return "redirect:/client";
     }
 }
