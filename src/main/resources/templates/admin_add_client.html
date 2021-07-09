@@ -10,11 +10,8 @@
 <body>
 <header th:insert="blocks/header_admin :: header"></header>
 
-
 <div class="container text-center">
     <div><h1>Добавить клиента</h1></div>
-
-    <!--Add client-->
     <form action="#" th:action="@{/client/addClient}"
           th:object="${client}"
           method="post">
@@ -67,24 +64,16 @@
                 </div>
             </div>
 
-
-
         </div>
         <div class="row">
             <div class="col-md-6 mt-5">
-                <input type="submit" class="btn btn-primary" value="Добавить">
+                <input type="submit" class="btn btn-primary" value="Сохранить">
             </div>
         </div>
     </form>
-    <!--Add end-->
-
-
-
+    <a th:href="@{/client}"> Назад в список</a>
 </div>
-
-<!--
-
-<div th:insert="blocks/footer :: footer"></div>
--->
 </body>
 </html>
+
+

@@ -21,6 +21,7 @@
                     <th>Город</th>
                     <th>Улица</th>
                     <th>Обновить</th>
+                    <!--<th>Удалить</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -33,9 +34,9 @@
 
                         <td><a th:href="@{/gym/edit/{id}(id=${gym.id})}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
 
-<!--
-                        <td><a th:href="@{/gym/delete/{id}(id=${gym.id})}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
--->
+
+                        <!--<td><a th:href="@{/gym/delete/{id}(id=${gym.id})}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>-->
+
 
                     </tr>
                 </th:block>
@@ -43,13 +44,34 @@
 
                 </tbody>
             </table>
+                <!--page-->
+                <div th:if="${totalPages > 1}">
+                    <div class="row col-sm-10">
+                        <div class="col-sm-2">
+                            Total Rows: [[${totalItems}]]
+                        </div>
+                        <div class="col-sm-1">
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/gym/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            </span>
+                        </div>
+                        <div class="col-sm-1">
+                            <a th:if="${currentPage < totalPages}" th:href="@{'/gym/page/' + ${currentPage + 1}}">След.</a>
+                            <span th:unless="${currentPage < totalPages}">След.</span>
+                        </div>
+
+                        <div class="col-sm-1">
+                            <a th:if="${currentPage < totalPages}" th:href="@{'/gym/page/' + ${totalPages}}">Посл.</a>
+                            <span th:unless="${currentPage < totalPages}">Посл.</span>
+                        </div>
+                    </div>
+                </div>
+                <!--page-->
         </div>
         <div class="col-md-6 mt-5">
             <p class="my-3"><a href="/gym/new/" button type="button" class="btn btn-primary">Добавить</button></a></p>
         </div>
-
-
     </div>
-
 </body>
 </html>

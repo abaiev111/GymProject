@@ -50,6 +50,7 @@
                         <td th:text="${employee.gym.street}" />
 
                         <td><a th:href="@{'/employee/edit/' + ${employee.id}}" class="btn btn-outline-primary"><i class="fas fa-user-edit ml-2"></i>Обновить</a></td>
+
                         <td><a th:href="@{'/employee/delete/' + ${employee.id}}" class="btn btn-outline-danger"><i class="fas fa-user-times ml-2"></i>Удалить</a></td>
 
                     </tr>
@@ -58,6 +59,30 @@
 
                 </tbody>
             </table>
+            <!--page-->
+            <div th:if="${totalPages > 1}">
+                <div class="row col-sm-10">
+                    <div class="col-sm-2">
+                        Total Rows: [[${totalItems}]]
+                    </div>
+                    <div class="col-sm-1">
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/employee/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            </span>
+                    </div>
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/employee/page/' + ${currentPage + 1}}">След.</a>
+                        <span th:unless="${currentPage < totalPages}">След.</span>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <a th:if="${currentPage < totalPages}" th:href="@{'/employee/page/' + ${totalPages}}">Посл.</a>
+                        <span th:unless="${currentPage < totalPages}">Посл.</span>
+                    </div>
+                </div>
+            </div>
+            <!--page-->
         </div>
 
         <div class="col-md-6 mt-5">

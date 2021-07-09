@@ -1,13 +1,15 @@
 package com.gmail.aba.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
+
 @RequestMapping("/admin")
 public class AdminController {
+
 
     @GetMapping()
     public String getAdmin() {
@@ -20,11 +22,14 @@ public class AdminController {
     }
 
     @GetMapping("/contact")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // !!!
     public String adminContact(){
         return "admin_contact";
     }
 
+
     @GetMapping("/database")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // !!!
     public String admin() {
         return "database";
     }

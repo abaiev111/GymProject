@@ -11,18 +11,18 @@ public class Employee {
 
     private String firstName;
     private String lastName;
-    private Integer age;
+    private String age;
     private String dayOfBirth;
     private String phone;
     private String position;
     private String experience;
-    private Integer salary;
+    private String salary;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Gym gym;
 
-    public Employee(String firstName, String lastName, Integer age, String dayOfBirth, String phone, String position, String experience, Integer salary) {
+    public Employee(String firstName, String lastName, String age, String dayOfBirth, String phone, String position, String experience, String salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -60,11 +60,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -100,11 +100,11 @@ public class Employee {
         this.experience = experience;
     }
 
-    public Integer getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(Integer salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
@@ -116,6 +116,32 @@ public class Employee {
         this.gym = gym;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(age, employee.age) && Objects.equals(dayOfBirth, employee.dayOfBirth) && Objects.equals(phone, employee.phone) && Objects.equals(position, employee.position) && Objects.equals(experience, employee.experience) && Objects.equals(salary, employee.salary) && Objects.equals(gym, employee.gym);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, age, dayOfBirth, phone, position, experience, salary, gym);
+    }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", dayOfBirth='" + dayOfBirth + '\'' +
+                ", phone='" + phone + '\'' +
+                ", position='" + position + '\'' +
+                ", experience='" + experience + '\'' +
+                ", salary='" + salary + '\'' +
+                ", gym=" + gym +
+                '}';
+    }
 }

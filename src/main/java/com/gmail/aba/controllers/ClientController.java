@@ -2,96 +2,90 @@ package com.gmail.aba.controllers;
 
 import com.gmail.aba.model.Client;
 import com.gmail.aba.model.Gym;
-import com.gmail.aba.repository.ClientRepository;
-import com.gmail.aba.repository.GymRepository;
+import com.gmail.aba.service.ClientService;
+import com.gmail.aba.service.GymService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/client")
 public class ClientController {
 
-    private final ClientRepository clientRepository;
+    private final ClientService clientService;
+    private final GymService gymService;
 
-    private final GymRepository gymRepository;
-
-    public ClientController(ClientRepository clientRepository, GymRepository gymRepository) {
-        this.clientRepository = clientRepository;
-        this.gymRepository = gymRepository;
+    public ClientController(ClientService clientService, GymService gymService) {
+        this.clientService = clientService;
+        this.gymService = gymService;
     }
-
-
 
     @GetMapping
-    public String showClientList(Model model){
-        model.addAttribute("clients", clientRepository.findAll());
-        return "index_client";
+    public String viewClientPage(Model model) {
+        return findClientPaginated(1, model);
     }
 
+    @GetMapping("/page/{pageNo}")
+    public String findClientPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+
+        Page<Client> page = clientService.findPaginated(pageNo, pageSize);
+        List<Client> listClients = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("clients", listClients);
+        return "admin_index_client";
+    }
 
     //.........................ADD
+
     @GetMapping("/new")
-    public String showAddClientForm(Model model, Client client){
+    public String showNewClientForm(Model model) {
+        // create model attribute to bind form data
+        Client client = new Client();
 
-        List<Gym> listGym = gymRepository.findAll();
+        List<Gym> listGym = gymService.getAllGums();
+
         model.addAttribute("listGym", listGym);
-
-        return "add_client";
+        model.addAttribute("client", client);
+        return "admin_add_client";
     }
 
     @PostMapping("/addClient")
-    public String addClient(@Valid Client client, BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            return "add_client";
-        }
-
-        clientRepository.save(client);
+    public String saveClient(@ModelAttribute("client") Client client) {
+        // save employee to database
+        clientService.saveClient(client);
         return "redirect:/client";
     }
 
     //...............................UPDATE
 
     @GetMapping("/edit/{id}")
-    public String showUpdateClientForm(@PathVariable("id") long id, Model model) {
+    public String showFormClientUpdate(@PathVariable(value = "id") long id, Model model) {
 
-        Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        List<Gym> listGym = gymRepository.findAll();
+        // get employee from the service
+        Client client = clientService.getClientById(id);
+
+        List<Gym> listGym = gymService.getAllGums();
         model.addAttribute("listGym", listGym);
 
-
+        // set employee as a model attribute to pre-populate the form
         model.addAttribute("client", client);
         return "update_client";
     }
-
-    @PostMapping("/edit/{id}")
-    public String updateClient(@PathVariable("id") long id, @Valid Client client,
-                            BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            client.setId(id);
-            return "update_client";
-        }
-
-        clientRepository.save(client);
-        return "redirect:/client";
-    }
-
-
     //............................DETETE
+
     @GetMapping("/delete/{id}")
-    public String deleteClient(@PathVariable("id") long id, Model model) {
-        Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
-        clientRepository.delete(client);
+    public String deleteClient(@PathVariable(value = "id") long id) {
+
+        // call delete employee method
+        this.clientService.deleteClientById(id);
         return "redirect:/client";
     }
+
 }

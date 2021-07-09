@@ -18,28 +18,21 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-md-6">
+                <form action="#" th:action="@{/gym/addGym}" th:object="${gym}" method="POST">
 
-                <form action="#" th:action="@{/gym/update/{id}(id=${gym.id})}" th:object="${gym}" method="post">
-                    <div class="row">
 
-                        <div class="form-group col-md-6">
-                            <label for="city" class="col-form-label">city</label>
-                            <input type="text" th:field="*{city}" class="form-control" id="city" placeholder="city">
-                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
-                        </div>
+                    <!-- Add hidden form field to handle update -->
+                    <input type="hidden" th:field="*{id}" />
 
-                        <div class="form-group col-md-6">
-                            <label for="street" class="col-form-label">street</label>
-                            <input type="text" th:field="*{street}" class="form-control" id="street" placeholder="street">
-                            <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mt-5">
-                            <input type="submit" class="btn btn-primary" value="Обновить">
-                        </div>
-                    </div>
+                    <input type="text" th:field="*{city}" class="form-control mb-4 col-4">
+                    <input type="text" th:field="*{street}" class="form-control mb-4 col-4">
+
+                    <button type="submit" class="btn btn-primary">Обновить</button>
                 </form>
+
+
+                <a th:href="@{/gym}">Назад в список</a>
+
             </div>
         </div>
     </div>

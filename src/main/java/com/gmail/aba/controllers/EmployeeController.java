@@ -2,93 +2,91 @@ package com.gmail.aba.controllers;
 
 import com.gmail.aba.model.Employee;
 import com.gmail.aba.model.Gym;
-import com.gmail.aba.repository.EmployeeRepository;
-import com.gmail.aba.repository.GymRepository;
+import com.gmail.aba.service.EmployeeService;
+import com.gmail.aba.service.GymService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
+    private final EmployeeService employeeService;
+    private final GymService gymService;
 
-    private final EmployeeRepository employeesRepository;
-
-    private final GymRepository gymRepository;
-
-    public EmployeeController(EmployeeRepository employeesRepository, GymRepository gymRepository) {
-        this.employeesRepository = employeesRepository;
-        this.gymRepository = gymRepository;
+    public EmployeeController(EmployeeService employeeService, GymService gymService) {
+        this.employeeService = employeeService;
+        this.gymService = gymService;
     }
 
     @GetMapping
-    public String showEmployeeList(Model model){
-        model.addAttribute("employees", employeesRepository.findAll());
-        return "index_employee";
+    public String viewEmployeePage(Model model) {
+        return findEmployeePaginated(1, model);
+    }
+
+    @GetMapping("/page/{pageNo}")
+    public String findEmployeePaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+
+        Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
+        List<Employee> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("employees", listEmployees);
+        return "admin_index_employee";
     }
 
 
     //.........................ADD
     @GetMapping("/new")
-    public String showAddEmployeeForm(Model model, Employee employee){
+    public String showNewEmployeeForm(Model model) {
+        // create model attribute to bind form data
+        Employee employee = new Employee();
 
-        List<Gym> listGym = gymRepository.findAll();
+        List<Gym> listGym = gymService.getAllGums();
+
         model.addAttribute("listGym", listGym);
-        return "add_employee";
+        model.addAttribute("employee", employee);
+        return "admin_add_employee";
     }
 
     @PostMapping("/addEmployee")
-    public String addEmployee(@Valid Employee employee, BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            return "add_employee";
-        }
-        employeesRepository.save(employee);
+    public String saveGym(@ModelAttribute("employee") Employee employee) {
+        // save employee to database
+        employeeService.saveEmployee(employee);
         return "redirect:/employee";
     }
 
     //...............................UPDATE
 
     @GetMapping("/edit/{id}")
-    public String showUpdateEmployeeForm(@PathVariable("id") long id, Model model) {
+    public String showFormEmployeeUpdate(@PathVariable(value = "id") long id, Model model) {
 
-        Employee employee = employeesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        List<Gym> listGym = gymRepository.findAll();
+        // get employee from the service
+        Employee employee = employeeService.getEmployeeById(id);
+
+        List<Gym> listGym = gymService.getAllGums();
         model.addAttribute("listGym", listGym);
 
-
+        // set employee as a model attribute to pre-populate the form
         model.addAttribute("employee", employee);
         return "update_employee";
     }
 
-    @PostMapping("/edit/{id}")
-    public String updateEmployee(@PathVariable("id") long id, @Valid Employee employee,
-                               BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            employee.setId(id);
-            return "update_employee";
-        }
+        //............................DETETE
 
-        employeesRepository.save(employee);
-        return "redirect:/employee";
-    }
-
-
-    //............................DETETE
     @GetMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable("id") long id, Model model) {
-        Employee employee = employeesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
-        employeesRepository.delete(employee);
+    public String deleteEmployee(@PathVariable(value = "id") long id) {
+
+        // call delete employee method
+        this.employeeService.deleteEmployeeById(id);
         return "redirect:/employee";
     }
+
 }

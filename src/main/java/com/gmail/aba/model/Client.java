@@ -12,7 +12,7 @@ public class Client {
 
     private String firstName;
     private String lastName;
-    private Integer age;
+    private String age;
     private String dayOfBirth;
     private String phone;
     private String email;
@@ -25,7 +25,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, Integer age, String dayOfBirth, String phone, String email) {
+    public Client(String firstName, String lastName, String age, String dayOfBirth, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -34,7 +34,7 @@ public class Client {
         this.email = email;
     }
 
-    public Client(String firstName, String lastName, Integer age, String dayOfBirth, String phone, String email, Gym gym) {
+    public Client(String firstName, String lastName, String age, String dayOfBirth, String phone, String email, Gym gym) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -68,11 +68,11 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -108,5 +108,30 @@ public class Client {
         this.gym = gym;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(id, client.id) && Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(age, client.age) && Objects.equals(dayOfBirth, client.dayOfBirth) && Objects.equals(phone, client.phone) && Objects.equals(email, client.email) && Objects.equals(gym, client.gym);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, age, dayOfBirth, phone, email, gym);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age='" + age + '\'' +
+                ", dayOfBirth='" + dayOfBirth + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gym=" + gym +
+                '}';
+    }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить фитнес клуб</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+<body>
+<header th:insert="blocks/header_admin :: header"></header>
+
+    <div class="container">
+        <div><h1>Добавить фитнес клуб</h1></div>
+
+        <form action="#" th:action="@{/gym/addGym}" th:object="${gym}" method="POST">
+            <div class="mb-3">
+            <input type="text" th:field="*{city}" placeholder="Город" class="form-control mb-4 col-4">
+            <input type="text" th:field="*{street}" placeholder="Адрес" class="form-control mb-4 col-4">
+
+                <button type="submit" class="btn btn-primary"> Сохранить</button>
+            </div>
+        </form>
+
+        <a th:href="@{/gym}"> Назад в список</a>
+    </div>
+</body>
+</html>
+

@@ -71,5 +71,25 @@ public class Gym {
         this.employees = employees;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gym gym = (Gym) o;
+        return Objects.equals(id, gym.id) && Objects.equals(city, gym.city) && Objects.equals(street, gym.street);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, city, street);
+    }
+
+    @Override
+    public String toString() {
+        return "Gym{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                '}';
+    }
 }
