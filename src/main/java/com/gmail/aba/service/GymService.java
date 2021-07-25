@@ -20,7 +20,6 @@ public class GymService {
 
     }
 
-
     public List <Gym> getAllGums() {
         return gymRepository.findAll();
     }
@@ -29,7 +28,6 @@ public class GymService {
     public void saveGym(Gym gym) {
         this.gymRepository.save(gym);
     }
-
 
     public Gym getGymById(long id) {
         Optional<Gym> optional = gymRepository.findById(id);
